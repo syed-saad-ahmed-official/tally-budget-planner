@@ -20,6 +20,33 @@
 @media(max-width:370px){.hero>div{padding:20px 13px}.hero .amount{font-size:24px}.hero .cents{font-size:.58em}.stat .value,#todayStats .value{font-size:20px}.month-entry-layout .grid-2{display:block}.month-entry-layout .grid-2>div+div{border-top:1px solid var(--line);margin-top:20px;padding-top:20px}#todayGoals .upcoming-row{grid-template-columns:minmax(0,1fr) 45px}#todayGoals .status-pill{grid-column:1/-1;justify-self:start}.field-row{flex-wrap:wrap}.cal-month-label{min-width:110px;font-size:15px}.cal-nav{gap:5px}.cal-day{min-height:58px}.cal-day .dots{gap:2px}.dot{width:5px;height:5px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 @media print{.sidebar,.topbar,#purchaseBanner,.workspace-footer,.btn,.icon-btn,.modal-overlay{display:none!important}body{background:white;color:black}main.content{padding:0;max-width:none}.panel.active{display:block}.card,.fund-card,.debt-card,.goal-card{break-inside:avoid}.today-layout,.overview-layout{display:block}.hero{print-color-adjust:exact}.stat{break-inside:avoid}}
+/* Exact product palette */
+:root{
+  --bg:#FFF8FA;--surface:#FFFFFF;--surface-soft:#FFF4F7;
+  --text:#1A1718;--text-secondary:#766B70;--text-muted:#9A8D92;
+  --border:#EEDFE4;
+  --accent:#E85D8F;--accent-hover:#D84E7F;--accent-dark:#C84372;--accent-soft:#FADBE6;
+  --success:#2E8B57;--success-soft:#E8F2EB;
+  --rose:#E97A90;--coral:#ED8A73;--orange:#E6A03C;--yellow:#D8B63C;--lime:#A7B54C;--green:#74A65A;--emerald:#3E9A6E;--teal:#238F7A;--aqua:#6FA8A5;--blue:#6A94B8;--purple:#9A7FB0;
+  --surface-alt:var(--surface-soft);--primary:var(--accent);--primary-strong:var(--accent-dark);--ink:var(--text);--ink-soft:var(--text-secondary);--line:var(--border);--success-bg:var(--success-soft);--warning:var(--orange);--warning-bg:var(--accent-soft);--danger:var(--rose);--danger-bg:var(--accent-soft);--info:var(--blue);--info-bg:var(--surface-soft);--navy:var(--accent-dark);
+}
+[data-theme="dark"]{
+  --bg:#1D1719;--surface:#2C2024;--surface-soft:#21191C;
+  --text:#FFF8FA;--text-secondary:#C8B9BE;--text-muted:#95868B;
+  --border:#49363D;
+  --accent:#E85D8F;--accent-hover:#F0709E;--accent-dark:#E85D8F;--accent-soft:#633247;
+  --success:#83CB98;--success-soft:#244435;
+  --surface-alt:var(--surface-soft);--primary:var(--accent);--primary-strong:var(--accent-dark);--ink:var(--text);--ink-soft:var(--text-secondary);--line:var(--border);--success-bg:var(--success-soft);--warning:var(--orange);--warning-bg:var(--accent-soft);--danger:var(--rose);--danger-bg:var(--accent-soft);--info:var(--blue);--info-bg:var(--surface-soft);--navy:var(--accent-dark);
+}
+/* Keep all high-contrast surfaces on the supplied palette in both modes. */
+#purchaseBanner{color:var(--text)}
+#purchaseBanner a{border-left-color:var(--border)}
+.hero>div:first-child{background:var(--accent-dark);color:var(--surface)}
+.hero>div:first-child .greet,.hero>div:first-child .cents,.hero>div:first-child .caption{color:var(--surface)}
+[data-theme="dark"] .hero>div:first-child .greet,[data-theme="dark"] .hero>div:first-child .cents,[data-theme="dark"] .hero>div:first-child .caption{color:var(--text)}
+html[data-mode=dark] .hero>div:first-child,[data-theme="dark"] .hero>div:first-child{background:var(--surface-soft);color:var(--text)}
+html[data-mode=dark] .btn:not(.ghost):not(.subtle),html[data-mode=dark] .quick-add-btn{color:var(--text)}
+html[data-mode=dark] .brand .mark{background:var(--accent-dark);color:var(--text)}
 </style>
 <meta name="description" content="Your budget, calendar, goals, savings and debts in one personal money workspace. Works offline and saves on this device."><link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Crect%20width='64'%20height='64'%20rx='16'%20fill='%23122b39'/%3E%3Cpath%20d='M18%2019h7v29h-7zm12-7h7v36h-7zm12%2013h7v23h-7z'%20fill='%23def49a'/%3E%3C/svg%3E"></head>
 <body>
@@ -345,7 +372,7 @@
         <div class="sub" style="margin:4px 0 2px;">Pick a palette, or set your own accent color.</div>
         <div class="swatch-grid" id="swatchGrid"></div>
         <div class="custom-color-row">
-          <input type="color" id="customColorInput" value="#E5A0B5" aria-label="Custom accent color">
+          <input type="color" id="customColorInput" value="#E85D8F" aria-label="Custom accent color">
           <span style="font-size:13px;font-weight:700;color:var(--ink-soft);">Use a custom accent color</span>
         </div>
       </div>
@@ -442,7 +469,7 @@ function hslToHex(h,s,l){
 }
 
 const PRESETS = {
-  blush:{primary:'#E5A0B5',strong:'#C9738C',bg:'#FBF3F5',alt:'#FBE7EC',line:'#F1D8DF',label:'Blush'},
+  blush:{primary:'#E85D8F',strong:'#C84372',bg:'#FFF8FA',alt:'#FFF4F7',line:'#EEDFE4',label:'Blush'},
   sage:{primary:'#A1B83A',strong:'#586D17',bg:'#F0F3EE',alt:'#EDF2D9',line:'#DDE5D8',label:'Citrus'},
   lavender:{primary:'#9E95D9',strong:'#6257AA',bg:'#F0F1F6',alt:'#EDEAF8',line:'#DFDEEA',label:'Iris'},
   sky:{primary:'#6C9FD8',strong:'#356AAD',bg:'#EEF3F8',alt:'#E6EFF9',line:'#DCE5EF',label:'Cobalt'},
@@ -471,26 +498,17 @@ function applyTheme(){
   const p=PRESETS[state.settings.theme] || PRESETS.blush;
   const base=custom ? state.settings.customColor : p.primary;
   const {h,s}=hexToHsl(base);
-  document.documentElement.dataset.mode=dark?'dark':'light';
-  const vars={
-    primary:base,
-    'primary-strong':dark?hslToHex(h,clamp(s,30,80),68):(custom?hslToHex(h,clamp(s,25,80),33):p.strong),
-    bg:dark?'#101E29':(custom?'#EEF3F6':p.bg),
-    surface:dark?'#192B37':'#FFFFFF',
-    'surface-alt':dark?hslToHex(h,25,20):(custom?hslToHex(h,25,94):p.alt),
-    line:dark?'#314754':(custom?'#DCE5EA':p.line),
-    ink:dark?'#E7F0F5':'#142D3B',
-    'ink-soft':dark?'#A9BEC9':'#566D7B',
-    success:dark?'#76C9A5':'#168266',
-    'success-bg':dark?'#173B32':'#E4F4EC',
-    warning:dark?'#EDC379':'#986017',
-    'warning-bg':dark?'#3C3120':'#FFF3D8',
-    danger:dark?'#EF9C8D':'#BB4D41',
-    'danger-bg':dark?'#3C292A':'#FCECE7',
-    info:dark?'#8BAFDE':'#3C6DA3',
-    'info-bg':dark?'#23354B':'#E7EFF9'
+  const exactLight={bg:'#FFF8FA',surface:'#FFFFFF','surface-soft':'#FFF4F7',text:'#1A1718','text-secondary':'#766B70','text-muted':'#9A8D92',border:'#EEDFE4',accent:'#E85D8F','accent-hover':'#D84E7F','accent-dark':'#C84372','accent-soft':'#FADBE6',success:'#2E8B57','success-soft':'#E8F2EB',rose:'#E97A90',coral:'#ED8A73',orange:'#E6A03C',yellow:'#D8B63C',lime:'#A7B54C',green:'#74A65A',emerald:'#3E9A6E',teal:'#238F7A',aqua:'#6FA8A5',blue:'#6A94B8',purple:'#9A7FB0'};
+  const exactDark={bg:'#1D1719',surface:'#2C2024','surface-soft':'#21191C',text:'#FFF8FA','text-secondary':'#C8B9BE','text-muted':'#95868B',border:'#49363D',accent:'#E85D8F','accent-hover':'#F0709E','accent-dark':'#E85D8F','accent-soft':'#633247',success:'#83CB98','success-soft':'#244435',rose:'#E97A90',coral:'#ED8A73',orange:'#E6A03C',yellow:'#D8B63C',lime:'#A7B54C',green:'#74A65A',emerald:'#3E9A6E',teal:'#238F7A',aqua:'#6FA8A5',blue:'#6A94B8',purple:'#9A7FB0'};
+  const exact=!custom && state.settings.theme==='blush';
+  const vars=exact ? (dark?exactDark:exactLight) : {
+    bg:dark?'#1D1719':(custom?'#FFF8FA':p.bg),surface:dark?'#2C2024':'#FFFFFF','surface-soft':dark?'#21191C':(custom?'#FFF4F7':p.alt),text:dark?'#FFF8FA':'#1A1718','text-secondary':dark?'#C8B9BE':'#766B70','text-muted':dark?'#95868B':'#9A8D92',border:dark?'#49363D':(custom?'#EEDFE4':p.line),accent:base,'accent-hover':dark?'#F0709E':base,'accent-dark':dark?'#E85D8F':(custom?hslToHex(h,clamp(s,25,80),33):p.strong),'accent-soft':dark?'#633247':(custom?'#FADBE6':p.alt),success:dark?'#83CB98':'#2E8B57','success-soft':dark?'#244435':'#E8F2EB',rose:'#E97A90',coral:'#ED8A73',orange:'#E6A03C',yellow:'#D8B63C',lime:'#A7B54C',green:'#74A65A',emerald:'#3E9A6E',teal:'#238F7A',aqua:'#6FA8A5',blue:'#6A94B8',purple:'#9A7FB0'
   };
+  document.documentElement.dataset.mode=dark?'dark':'light';
+  document.documentElement.dataset.theme=dark?'dark':'light';
+  const aliases={primary:vars.accent,'primary-strong':vars['accent-dark'],bg:vars.bg,surface:vars.surface,'surface-alt':vars['surface-soft'],line:vars.border,ink:vars.text,'ink-soft':vars['text-secondary'],success:vars.success,'success-bg':vars['success-soft'],warning:vars.orange,'warning-bg':vars['accent-soft'],danger:vars.rose,'danger-bg':vars['accent-soft'],info:vars.blue,'info-bg':vars['surface-soft'],navy:vars['accent-dark'],lime:vars.lime};
   Object.entries(vars).forEach(([key,value])=>root.setProperty('--'+key,value));
+  Object.entries(aliases).forEach(([key,value])=>root.setProperty('--'+key,value));
 }
 
 /* ============ state ============ */
@@ -855,7 +873,7 @@ function renderSettings(){
     });
     grid.appendChild(el);
   });
-  document.getElementById('customColorInput').value = state.settings.customColor || '#E5A0B5';
+  document.getElementById('customColorInput').value = state.settings.customColor || '#E85D8F';
 }
 document.getElementById('settingName').addEventListener('input',(e)=>{
   state.settings.name=e.target.value; saveState(); updateBrand();
